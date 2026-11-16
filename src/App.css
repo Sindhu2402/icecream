@@ -138,7 +138,7 @@ body {
   pointer-events: none;
 }
 
-/* INDIVIDUAL TOPPING PIECES */
+/* TOPPING PIECES */
 
 .topping-piece {
   position: absolute;
@@ -206,7 +206,7 @@ body {
   animation: floatPiece6 4.2s ease-in-out infinite;
 }
 
-/* INDIVIDUAL FLOAT AND ROTATE */
+/* FLOAT AND ROTATE */
 
 @keyframes floatPiece1 {
   0%, 100% {
@@ -268,7 +268,7 @@ body {
   }
 }
 
-/* RIGHT SIDE - NEXT IMAGE ONLY */
+/* RIGHT SIDE */
 
 .right {
   width: 20%;

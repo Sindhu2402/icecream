@@ -2,13 +2,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 
+const getImagePath = (path) =>
+  `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+
 const flavours = [
   {
     line1: "Pistachio",
     line2: "Dream",
     color: "#8BC53F",
-    img: "/pistachio.jpg",
-    topping: "/pistachiotopping.jpg",
+    img: "pistachio.jpg",
+    topping: "pistachiotopping.jpg",
     description:
       "Rich Pistachio flavour with real bits. Creamy, crunchy and delicious — for true Pistachio lovers.",
   },
@@ -16,8 +19,8 @@ const flavours = [
     line1: "Choco",
     line2: "Fudge",
     color: "#3A2011",
-    img: "/choco.jpg",
-    topping: "/chocotopping.jpg",
+    img: "choco.jpg",
+    topping: "chocotopping.jpg",
     description:
       "Deep, dark chocolate swirled with ribbons of fudge. Rich, indulgent and unapologetically delicious.",
   },
@@ -25,8 +28,8 @@ const flavours = [
     line1: "Orange",
     line2: "Sunset",
     color: "#FF8A1A",
-    img: "/orange.jpg",
-    topping: "/orangetopping.jpg",
+    img: "orange.jpg",
+    topping: "orangetopping.jpg",
     description:
       "Fresh orange flavour with a creamy texture. A delicious fruity treat for every moment.",
   },
@@ -34,8 +37,8 @@ const flavours = [
     line1: "Strawberry",
     line2: "Bliss",
     color: "#FF4A7A",
-    img: "/strawberry.jpg",
-    topping: "/strawberrytopping.jpg",
+    img: "strawberry.jpg",
+    topping: "strawberrytopping.jpg",
     description:
       "Sweet strawberry flavour blended with smooth and creamy goodness.",
   },
@@ -43,8 +46,8 @@ const flavours = [
     line1: "Blueberry",
     line2: "Lagoon",
     color: "#526DAA",
-    img: "/blueberry.jpg",
-    topping: "/blueberrytopping.jpg",
+    img: "blueberry.jpg",
+    topping: "blueberrytopping.jpg",
     description:
       "Fresh blueberry flavour with creamy sweetness. A refreshing treat for every moment.",
   },
@@ -53,6 +56,8 @@ const flavours = [
 function ImgNoWhite({ src, className }) {
   const canvasRef = useRef(null);
   const [processed, setProcessed] = useState(null);
+
+  const imageSrc = getImagePath(src);
 
   useEffect(() => {
     let cancelled = false;
@@ -63,52 +68,60 @@ function ImgNoWhite({ src, className }) {
     img.onload = () => {
       if (cancelled || !canvasRef.current) return;
 
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext("2d");
+      try {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext("2d");
 
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
 
-      ctx.drawImage(img, 0, 0);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
 
-      const imageData = ctx.getImageData(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
+        const imageData = ctx.getImageData(
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
 
-      const data = imageData.data;
+        const data = imageData.data;
 
-      for (let i = 0; i < data.length; i += 4) {
-        const r = data[i];
-        const g = data[i + 1];
-        const b = data[i + 2];
+        for (let i = 0; i < data.length; i += 4) {
+          const r = data[i];
+          const g = data[i + 1];
+          const b = data[i + 2];
 
-        if (r > 230 && g > 230 && b > 230) {
-          data[i + 3] = 0;
+          if (r > 230 && g > 230 && b > 230) {
+            data[i + 3] = 0;
+          }
         }
-      }
 
-      ctx.putImageData(imageData, 0, 0);
+        ctx.putImageData(imageData, 0, 0);
 
-      if (!cancelled) {
-        setProcessed(canvas.toDataURL("image/jpg"));
+        if (!cancelled) {
+          setProcessed(canvas.toDataURL("image/png"));
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setProcessed(imageSrc);
+        }
       }
     };
 
     img.onerror = () => {
       if (!cancelled) {
-        setProcessed(src);
+        console.error("Image not found:", imageSrc);
+        setProcessed(imageSrc);
       }
     };
 
-    img.src = src;
+    img.src = imageSrc;
 
     return () => {
       cancelled = true;
     };
-  }, [src]);
+  }, [imageSrc]);
 
   return (
     <>
@@ -122,6 +135,7 @@ function ImgNoWhite({ src, className }) {
           src={processed}
           className={className}
           alt=""
+          draggable="false"
         />
       )}
     </>
@@ -177,7 +191,6 @@ export default function App() {
             {/* FLOATING TOPPINGS */}
 
             <div className="topping-area">
-
               {Array.from({ length: 6 }).map((_, index) => (
                 <div
                   key={index}
@@ -189,7 +202,6 @@ export default function App() {
                   />
                 </div>
               ))}
-
             </div>
 
             {/* MAIN CONE */}
@@ -213,6 +225,7 @@ export default function App() {
           tabIndex={0}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
               nextSlide();
             }
           }}
