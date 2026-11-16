@@ -1,0 +1,421 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.website {
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  transition: background-color 0.6s ease;
+}
+
+.banner {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* LEFT CONTENT */
+
+.left {
+  width: 26%;
+  flex-shrink: 0;
+  color: white;
+  padding-left: 2.5%;
+  padding-right: 0;
+}
+
+.left h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(42px, 5vw, 68px);
+  line-height: 0.9;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.left p {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  line-height: 18px;
+  color: rgba(255,255,255,0.9);
+  margin-top: 18px;
+  max-width: 260px;
+}
+
+.left button {
+  margin-top: 20px;
+  background: #0A0A0A;
+  color: white;
+  border: none;
+  padding: 11px 20px;
+  font-size: 11px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.left button:hover {
+  background: white;
+  color: #111;
+}
+
+/* CENTER */
+
+.center {
+  width: 54%;
+  height: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.cone-wrapper {
+  position: relative;
+  width: 380px;
+  height: 520px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* MAIN ICE CREAM */
+
+.main-wrap {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  background: transparent !important;
+  z-index: 2;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-cone {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: transparent !important;
+  filter: drop-shadow(0 30px 40px rgba(0,0,0,0.4));
+  display: block;
+}
+
+/* TOPPING AREA */
+
+.topping-area {
+  position: absolute;
+  top: -45px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 130px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* INDIVIDUAL TOPPING PIECES */
+
+.topping-piece {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+}
+
+.ct-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: transparent !important;
+  filter: drop-shadow(0 6px 8px rgba(0,0,0,0.35));
+}
+
+/* TOPPING POSITIONS */
+
+.piece-1 {
+  width: 48px;
+  height: 48px;
+  top: 4px;
+  left: 42%;
+  animation: floatPiece1 3s ease-in-out infinite;
+}
+
+.piece-2 {
+  width: 38px;
+  height: 38px;
+  top: 0;
+  left: 65%;
+  animation: floatPiece2 3.5s ease-in-out infinite;
+}
+
+.piece-3 {
+  width: 43px;
+  height: 43px;
+  top: 40px;
+  left: 78%;
+  animation: floatPiece3 4s ease-in-out infinite;
+}
+
+.piece-4 {
+  width: 35px;
+  height: 35px;
+  top: 55px;
+  left: 48%;
+  animation: floatPiece4 3.2s ease-in-out infinite;
+}
+
+.piece-5 {
+  width: 42px;
+  height: 42px;
+  top: 30px;
+  left: 15%;
+  animation: floatPiece5 3.7s ease-in-out infinite;
+}
+
+.piece-6 {
+  width: 30px;
+  height: 30px;
+  top: 2px;
+  left: 22%;
+  animation: floatPiece6 4.2s ease-in-out infinite;
+}
+
+/* INDIVIDUAL FLOAT AND ROTATE */
+
+@keyframes floatPiece1 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(-12deg);
+  }
+
+  50% {
+    transform: translate(5px, -12px) rotate(15deg);
+  }
+}
+
+@keyframes floatPiece2 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(15deg);
+  }
+
+  50% {
+    transform: translate(-5px, -14px) rotate(40deg);
+  }
+}
+
+@keyframes floatPiece3 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(-20deg);
+  }
+
+  50% {
+    transform: translate(5px, -10px) rotate(12deg);
+  }
+}
+
+@keyframes floatPiece4 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(10deg);
+  }
+
+  50% {
+    transform: translate(-5px, -13px) rotate(-20deg);
+  }
+}
+
+@keyframes floatPiece5 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(20deg);
+  }
+
+  50% {
+    transform: translate(5px, -10px) rotate(-10deg);
+  }
+}
+
+@keyframes floatPiece6 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(-15deg);
+  }
+
+  50% {
+    transform: translate(-5px, -9px) rotate(20deg);
+  }
+}
+
+/* RIGHT SIDE - NEXT IMAGE ONLY */
+
+.right {
+  width: 20%;
+  height: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 2%;
+  cursor: pointer;
+}
+
+.mini-wrap {
+  width: 105px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+}
+
+.mini-cone {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: transparent !important;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+}
+
+/* TABLET */
+
+@media (max-width: 900px) {
+  .left {
+    width: 28%;
+    padding-left: 2%;
+  }
+
+  .center {
+    width: 52%;
+  }
+
+  .right {
+    width: 20%;
+    padding-right: 1%;
+  }
+
+  .cone-wrapper {
+    transform: scale(0.82);
+  }
+
+  .mini-wrap {
+    width: 85px;
+    height: 130px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+  .website {
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .banner {
+    min-height: 100vh;
+    height: auto;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-bottom: 25px;
+  }
+
+  .left {
+    width: 100%;
+    padding: 40px 6% 0;
+    text-align: center;
+  }
+
+  .left h1 {
+    font-size: 45px;
+  }
+
+  .left p {
+    margin: 15px auto 0;
+  }
+
+  .center {
+    width: 100%;
+    height: 440px;
+    margin-top: 10px;
+  }
+
+  .cone-wrapper {
+    width: 280px;
+    height: 420px;
+    transform: none;
+  }
+
+  .main-wrap {
+    width: 200px;
+    height: 300px;
+  }
+
+  .topping-area {
+    width: 220px;
+    height: 105px;
+    top: -30px;
+  }
+
+  .piece-1 {
+    width: 35px;
+    height: 35px;
+  }
+
+  .piece-2 {
+    width: 30px;
+    height: 30px;
+  }
+
+  .piece-3 {
+    width: 32px;
+    height: 32px;
+  }
+
+  .piece-4 {
+    width: 28px;
+    height: 28px;
+  }
+
+  .piece-5 {
+    width: 32px;
+    height: 32px;
+  }
+
+  .piece-6 {
+    width: 25px;
+    height: 25px;
+  }
+
+  .right {
+    width: 100%;
+    height: 130px;
+    padding: 0;
+  }
+
+  .mini-wrap {
+    width: 85px;
+    height: 125px;
+  }
+}
